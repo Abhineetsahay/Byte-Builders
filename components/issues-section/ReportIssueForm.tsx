@@ -121,7 +121,6 @@ export function ReportIssueForm({ onSubmit }: ReportIssueFormProps) {
               </div>
             </div>
 
-            {/* Upload Media Section */}
             <div className="space-y-4">
               <Label className="text-base font-semibold">Upload Media</Label>
               <div
@@ -157,7 +156,6 @@ export function ReportIssueForm({ onSubmit }: ReportIssueFormProps) {
                 </label>
               </div>
 
-              {/* File Previews */}
               {formData.media.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {formData.media.map((file, index) => (
