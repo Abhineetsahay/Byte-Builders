@@ -26,8 +26,11 @@ type SortDirection = 'asc' | 'desc';
 
 const CityHeroesDashboard = () => {
   const { data: session, status } = useSession();
+  const [ngoSortField, setNgoSortField] = useState<SortField>('rank');
+  const [ngoSortDirection, setNgoSortDirection] = useState<SortDirection>('asc');
+  const [citizenSortField, setCitizenSortField] = useState<SortField>('rank');
+  const [citizenSortDirection, setCitizenSortDirection] = useState<SortDirection>('asc');
 
-  // Redirect if not authenticated
   useEffect(() => {
     if (status === 'loading') return;
     if (!session) {
@@ -35,7 +38,6 @@ const CityHeroesDashboard = () => {
     }
   }, [session, status]);
 
-  // Show loading while checking authentication
   if (status === 'loading') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center">
@@ -47,15 +49,9 @@ const CityHeroesDashboard = () => {
     );
   }
 
-  // Don't render anything if not authenticated (will redirect)
   if (!session) {
     return null;
   }
-
-  const [ngoSortField, setNgoSortField] = useState<SortField>('rank');
-  const [ngoSortDirection, setNgoSortDirection] = useState<SortDirection>('asc');
-  const [citizenSortField, setCitizenSortField] = useState<SortField>('rank');
-  const [citizenSortDirection, setCitizenSortDirection] = useState<SortDirection>('asc');
 
   const ngoData: NgoData[] = [
     {
