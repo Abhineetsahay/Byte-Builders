@@ -101,7 +101,7 @@ const Navigation: React.FC<NavigationProps> = ({ scrollY }) => {
           <h1 className="text-2xl font-bold text-gray-800">City Pulse</h1>
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all duration-300 hover:scale-105 font-medium">Features</a>
+          <a href="#features" className="text-gray-600 hover:text-gray-800 transition-all duration-300 hover:scale-105 font-medium">Features</a>  
           <a href="#community" className="text-gray-600 hover:text-gray-800 transition-all duration-300 hover:scale-105 font-medium">Community</a>
           <a href="#about" className="text-gray-600 hover:text-gray-800 transition-all duration-300 hover:scale-105 font-medium">About</a>
           <Link href="/Login" className="bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-gray-800 px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-lg font-medium">
@@ -234,10 +234,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollY }) => {
                 Join a local group to meet people, try something new, or do more of what you love.
               </p>
 
-              <button className="group inline-flex items-center bg-gray-800 hover:bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              <Link href="/Login" className="group inline-flex items-center bg-gray-800 hover:bg-gray-900 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
                 START NOW 
                 <i className="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform duration-300"></i>
-              </button>
+              </Link>
             </AnimatedSection>
 
             {/* Right Illustration */}

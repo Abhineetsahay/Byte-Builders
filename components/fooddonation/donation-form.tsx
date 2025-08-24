@@ -14,6 +14,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import { CalendarIcon, X, MapPin, Camera, Heart } from "lucide-react"
+import Link from "next/link"
 
 interface DonationFormProps {
   onSuccess?: () => void
@@ -54,7 +55,7 @@ export function DonationForm({ onSuccess }: DonationFormProps) {
               <SelectTrigger>
                 <SelectValue placeholder="Select food type" />
               </SelectTrigger>
-              <SelectContent className="z-[9999]" position="popper" side="bottom" align="start">
+              <SelectContent className="z-[9999] bg-white" position="popper" side="bottom" align="start">
                 {foodTypes.map((type) => (
                   <SelectItem key={type} value={type}>
                     {type}
@@ -88,7 +89,7 @@ export function DonationForm({ onSuccess }: DonationFormProps) {
                   Select expiry date
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0 z-[9999]">
+              <PopoverContent className="w-auto p-0 z-[9999] bg-white">
                 <Calendar
                   mode="single"
                   disabled={(date) => date < new Date()}
@@ -138,12 +139,14 @@ export function DonationForm({ onSuccess }: DonationFormProps) {
           </div>
 
           {/* Submit Button */}
-          <Button
-            type="submit"
-            className="w-full"
-          >
-            Post Donation
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              type="submit"
+              className="w-full"
+            >
+              Post Donation
+            </Button>
+          </Link>
         </form>
       </CardContent>
     </Card>

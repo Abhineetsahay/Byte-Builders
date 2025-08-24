@@ -1,13 +1,13 @@
 'use client'
 import React, { useState } from 'react';
-import { 
-  Users, 
-  AlertTriangle, 
-  CheckCircle, 
-  TrendingUp, 
-  Settings, 
-  Shield, 
-  BarChart3, 
+import {
+  Users,
+  AlertTriangle,
+  CheckCircle,
+  TrendingUp,
+  Settings,
+  Shield,
+  BarChart3,
   FileText,
   Eye,
   Edit,
@@ -18,6 +18,7 @@ import {
   Download,
   RefreshCw
 } from 'lucide-react';
+import Link from 'next/link';
 
 // Mock data for admin dashboard
 const mockStats = {
@@ -93,11 +94,10 @@ const AdminDashboard = () => {
   const TabButton = ({ id, label, icon: Icon }: any) => (
     <button
       onClick={() => setActiveTab(id)}
-      className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
-        activeTab === id
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 ${activeTab === id
           ? 'bg-gradient-to-r from-yellow-400 to-orange-400 text-white shadow-lg'
           : 'text-gray-600 hover:bg-yellow-50 hover:text-gray-800'
-      }`}
+        }`}
     >
       <Icon className="w-4 h-4" />
       {label}
@@ -133,6 +133,90 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
+        {/* Route Navigation Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Link href="/" className="group">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-yellow-200 hover:shadow-xl transition-all duration-300 cursor-pointer group-hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-home text-white text-lg"></i>
+                </div>
+                <i className="fas fa-arrow-right text-yellow-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Landing Page</h3>
+              <p className="text-sm text-gray-600">Go to main landing page</p>
+            </div>
+          </Link>
+
+          <Link href="/Login" className="group">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-yellow-200 hover:shadow-xl transition-all duration-300 cursor-pointer group-hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-sign-in-alt text-white text-lg"></i>
+                </div>
+                <i className="fas fa-arrow-right text-blue-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Login</h3>
+              <p className="text-sm text-gray-600">User authentication page</p>
+            </div>
+          </Link>
+
+          <Link href="/food-donation" className="group">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-yellow-200 hover:shadow-xl transition-all duration-300 cursor-pointer group-hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-green-500 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-heart text-white text-lg"></i>
+                </div>
+                <i className="fas fa-arrow-right text-green-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Food Donation</h3>
+              <p className="text-sm text-gray-600">Manage food donations</p>
+            </div>
+          </Link>
+
+          <Link href="/NGO" className="group">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-yellow-200 hover:shadow-xl transition-all duration-300 cursor-pointer group-hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-500 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-users text-white text-lg"></i>
+                </div>
+                <i className="fas fa-arrow-right text-purple-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">NGO Dashboard</h3>
+              <p className="text-sm text-gray-600">View NGO rankings and stats</p>
+            </div>
+          </Link>
+        </div>
+
+        {/* Additional Route Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <Link href="/Report-issue" className="group">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-yellow-200 hover:shadow-xl transition-all duration-300 cursor-pointer group-hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-red-400 to-red-500 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-exclamation-triangle text-white text-lg"></i>
+                </div>
+                <i className="fas fa-arrow-right text-red-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Report Issue</h3>
+              <p className="text-sm text-gray-600">Report community issues</p>
+            </div>
+          </Link>
+
+          <Link href="/dashboard" className="group">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-yellow-200 hover:shadow-xl transition-all duration-300 cursor-pointer group-hover:scale-105">
+              <div className="flex items-center justify-between mb-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-indigo-400 to-indigo-500 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-chart-line text-white text-lg"></i>
+                </div>
+                <i className="fas fa-arrow-right text-indigo-400 group-hover:translate-x-1 transition-transform duration-300"></i>
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Normal Dashboard</h3>
+              <p className="text-sm text-gray-600">View analytics and metrics</p>
+            </div>
+          </Link>
+        </div>
+
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard
