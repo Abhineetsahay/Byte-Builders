@@ -50,7 +50,6 @@ enum FoodDonationStatus {
 model FoodDonation {
   id    Int      @id @default(autoincrement())
   foodType      String
-  quantity      String
   weight        Int
   pickupAddress String
   photoURL      String
