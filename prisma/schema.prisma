@@ -55,12 +55,11 @@ model FoodDonation {
   pickupAddress String
   photoURL      String
   description   String
-  expiryDate    String
   createdAt     DateTime @default(now())
 
   donor         User               @relation(fields: [donorUserId], references: [id])
   donorUserId   String
-  status        FoodDonationStatus
+  status        FoodDonationStatus @default(PENDING)
   acceptedByOrg Organization?      @relation(fields: [acceptorOrgId], references: [id])
   acceptorOrgId String?
 
