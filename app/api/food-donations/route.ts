@@ -4,7 +4,6 @@ import z from "zod";
 
 const CreateFoodDonationSchema = z.object({
   foodType: z.string().min(1, "Food type is required."),
-  quantity: z.string().min(1, "Quantity is required."),
   weight: z.number().positive("Weight must be a positive number."),
   pickupAddress: z.string().min(1, "Pickup address is required."),
   photoURL: z.string().url("Must be a valid URL."),
@@ -29,6 +28,23 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     console.error("Error creating food donation:", error);
+    return NextResponse.json({ error: "An internal server error occurred." }, { status: 500 });
+  }
+}
+
+export async function GET() {
+  try {
+    const donations = await prisma.foodDonation.findMany({
+      include: {
+        donor: true,
+        acceptedByOrg: true,
+      },
+    });
+
+    return NextResponse.json(donations);
+
+  } catch (error) {
+    console.error("Error fetching food donations:", error);
     return NextResponse.json({ error: "An internal server error occurred." }, { status: 500 });
   }
 }
