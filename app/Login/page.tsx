@@ -5,8 +5,21 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation";
+import { auth } from "@/auth";
 
 export default function Page() {
+  const { data, status } = useSession(auth);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/dashboard");
+    }
+  }, [data, status, router]);
+
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-white shadow-lg">

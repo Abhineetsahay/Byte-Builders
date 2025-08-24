@@ -15,14 +15,29 @@ const createIssueSchema = z.object({
 });
 
 export async function GET(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+  const city = searchParams.get("city");
+ 
+  const whereClause: any = {};
+  if (city) {
+    whereClause.user = {
+      city,
+    };
+  }
+
+
   try {
     const issues = await prisma.issue.findMany({
+      where: {
+        ...whereClause,
+      },
       include: {
         user: {
           select: {
             id: true,
             name: true,
             email: true,
+            city: true,
           },
         },
         _count: {
