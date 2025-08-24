@@ -48,14 +48,14 @@ enum FoodDonationStatus {
 }
 
 model FoodDonation {
-  donationId    Int      @id @default(autoincrement())
+  id    Int      @id @default(autoincrement())
   foodType      String
   quantity      String
   weight        Int
   pickupAddress String
   photoURL      String
   description   String
-  expiryDate    DateTime
+  expiryDate    String
   createdAt     DateTime @default(now())
 
   donor         User               @relation(fields: [donorUserId], references: [id])
