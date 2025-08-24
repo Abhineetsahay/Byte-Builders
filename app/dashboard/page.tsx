@@ -8,7 +8,7 @@ import {
 } from 'recharts';
 import { 
   TrendingUp, TrendingDown, AlertCircle, CheckCircle, 
-  Clock, Award, Calendar, Filter, Download, RefreshCw
+  Clock, Award, Filter, Download, RefreshCw
 } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
