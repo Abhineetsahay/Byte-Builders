@@ -13,6 +13,7 @@ import {
 import { indianStates, citiesByState } from "@/lib/india-data";
 import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "@/auth";
 
 export default function Page() {
   const [selectedState, setSelectedState] = useState<string>("");
@@ -140,7 +141,7 @@ export default function Page() {
             variant="outline"
             className="w-full h-12 bg-white border-gray-300 text-gray-800 hover:bg-gray-50"
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2" onClick={() => signIn()}>
               <div className="w-5 h-5 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
                 G
               </div>
