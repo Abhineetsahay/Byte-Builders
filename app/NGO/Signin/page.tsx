@@ -66,7 +66,7 @@ export default function Page() {
   const onSubmit = async (data: FormData) => {
     try {
       console.log("Form data:", data);
-      const ap = await axios.post("/api/org/signin",data);
+      const ap = await axios.post("/api/org/signin", data);
       console.log(ap.data());
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -79,12 +79,11 @@ export default function Page() {
         <CardHeader className="space-y-6 pb-6">
           <div className="flex items-center space-x-2">
             <div className="w-6 h-6 bg-gray-800 transform rotate-45"></div>
-            <span className="text-xl font-semibold text-gray-800">Name</span>
           </div>
 
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-800">
-              Welcome to Mo Sahara
+              Welcome to City Pulse
             </h1>
           </div>
         </CardHeader>
