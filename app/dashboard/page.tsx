@@ -1,15 +1,16 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import { 
+import {
   LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   RadialBarChart, RadialBar, ComposedChart
 } from 'recharts';
-import { 
-  TrendingUp, TrendingDown, Users, AlertCircle, CheckCircle, 
+import {
+  TrendingUp, TrendingDown, Users, AlertCircle, CheckCircle,
   Clock, Droplet, Leaf, Heart, Book, Home, Zap, Trash2,
   MapPin, Calendar, Filter, Download, RefreshCw, Award
 } from 'lucide-react';
+import Link from 'next/link';
 
 const Dashboard = () => {
   const [selectedTimeRange, setSelectedTimeRange] = useState('month');
@@ -26,7 +27,7 @@ const Dashboard = () => {
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;
-    
+
     const targetValues = {
       totalQueries: 15420,
       resolvedQueries: 12350,
@@ -38,7 +39,7 @@ const Dashboard = () => {
     const timer = setInterval(() => {
       currentStep++;
       const progress = currentStep / steps;
-      
+
       setAnimatedValues({
         totalQueries: Math.floor(targetValues.totalQueries * progress),
         resolvedQueries: Math.floor(targetValues.resolvedQueries * progress),
@@ -124,20 +125,13 @@ const Dashboard = () => {
                 Sustainable Cities Analytics
               </h1>
               <p className="text-gray-600">SDG 2030 Progress Tracking - Bhubaneswar</p>
+              <p className="text-black-600 text-2xl font-bold"> (Most of the functionalities are in the admin dashboard)</p>
             </div>
             <div className="flex gap-3">
-              <button className="px-4 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                {selectedTimeRange === 'month' ? 'This Month' : 'This Week'}
-              </button>
-              <button className="px-4 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-2">
-                <Filter className="w-4 h-4" />
-                Filter
-              </button>
-              <button className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition-colors flex items-center gap-2">
-                <Download className="w-4 h-4" />
-                Export
-              </button>
+              <Link href="/admin" className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-lg hover:from-yellow-500 hover:to-orange-500 transition-all duration-300 flex items-center gap-2 shadow-lg hover:shadow-xl">
+                <Award className="w-4 h-4" />
+                Go to Admin Dashboard
+              </Link>
             </div>
           </div>
         </div>
@@ -157,8 +151,8 @@ const Dashboard = () => {
             <h3 className="text-3xl font-bold text-gray-800">{animatedValues.totalQueries.toLocaleString()}</h3>
             <p className="text-gray-600 text-sm mt-1">Total Queries Received</p>
             <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full" 
-                   style={{ width: '78%' }}></div>
+              <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full"
+                style={{ width: '78%' }}></div>
             </div>
           </div>
 
@@ -175,8 +169,8 @@ const Dashboard = () => {
             <h3 className="text-3xl font-bold text-gray-800">{animatedValues.resolvedQueries.toLocaleString()}</h3>
             <p className="text-gray-600 text-sm mt-1">Queries Resolved</p>
             <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full" 
-                   style={{ width: '80%' }}></div>
+              <div className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full"
+                style={{ width: '80%' }}></div>
             </div>
           </div>
 
@@ -193,8 +187,8 @@ const Dashboard = () => {
             <h3 className="text-3xl font-bold text-gray-800">{animatedValues.pendingComplaints.toLocaleString()}</h3>
             <p className="text-gray-600 text-sm mt-1">Pending Complaints</p>
             <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full" 
-                   style={{ width: '20%' }}></div>
+              <div className="h-full bg-gradient-to-r from-amber-400 to-amber-600 rounded-full"
+                style={{ width: '20%' }}></div>
             </div>
           </div>
 
@@ -211,8 +205,8 @@ const Dashboard = () => {
             <h3 className="text-3xl font-bold text-gray-800">{animatedValues.impactScore}%</h3>
             <p className="text-gray-600 text-sm mt-1">Sustainability Score</p>
             <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full" 
-                   style={{ width: `${animatedValues.impactScore}%` }}></div>
+              <div className="h-full bg-gradient-to-r from-purple-400 to-purple-600 rounded-full"
+                style={{ width: `${animatedValues.impactScore}%` }}></div>
             </div>
           </div>
         </div>
@@ -223,8 +217,10 @@ const Dashboard = () => {
             <h2 className="text-xl font-bold text-gray-800 mb-6">SDG 2030 Progress</h2>
             <div className="space-y-4">
               {sdgProgress.map((goal, index) => (
-                <div key={index} className="flex items-center gap-4">
-                  <span className="text-2xl">{goal.icon}</span>
+                <div key={index} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xl bg-white shadow-sm">
+                    {goal.icon}
+                  </div>
                   <div className="flex-1">
                     <div className="flex justify-between items-center mb-1">
                       <span className="text-sm font-medium text-gray-700">{goal.goal}</span>
@@ -234,10 +230,10 @@ const Dashboard = () => {
                     </div>
                     <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
                       <div className="h-full rounded-full transition-all duration-1000 ease-out"
-                           style={{ 
-                             width: `${goal.achieved}%`,
-                             background: `linear-gradient(90deg, ${goal.color}CC, ${goal.color})`
-                           }}></div>
+                        style={{
+                          width: `${goal.achieved}%`,
+                          background: `linear-gradient(90deg, ${goal.color}CC, ${goal.color})`
+                        }}></div>
                     </div>
                   </div>
                 </div>
@@ -288,8 +284,10 @@ const Dashboard = () => {
             <div className="grid grid-cols-2 gap-2 mt-4">
               {complaintCategories.map((cat, index) => (
                 <div key={index} className="flex items-center gap-2 text-sm">
-                  <div className="w-3 h-3 rounded-full" 
-                       style={{ backgroundColor: COLORS[index % COLORS.length] }}></div>
+                  <div className="w-4 h-4 rounded-full flex items-center justify-center text-white text-xs font-bold"
+                    style={{ backgroundColor: COLORS[index % COLORS.length] }}>
+                    {cat.percentage}%
+                  </div>
                   <span className="text-gray-600">{cat.name}</span>
                 </div>
               ))}
@@ -321,9 +319,8 @@ const Dashboard = () => {
                 <div key={index} className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-2xl">{metric.icon}</span>
-                    <span className={`text-xs font-semibold ${
-                      metric.change.startsWith('+') ? 'text-green-600' : 'text-red-600'
-                    }`}>
+                    <span className={`text-xs font-semibold ${metric.change.startsWith('+') ? 'text-green-600' : 'text-red-600'
+                      }`}>
                       {metric.change}
                     </span>
                   </div>
@@ -361,20 +358,21 @@ const Dashboard = () => {
           </div>
           <div className="space-y-3">
             {[
-              { type: 'water', message: 'Water quality issue reported in Ward 3', time: '2 mins ago', status: 'new' },
-              { type: 'resolved', message: 'Waste management complaint resolved in Ward 1', time: '5 mins ago', status: 'resolved' },
-              { type: 'energy', message: 'Solar panel installation completed at Community Center', time: '12 mins ago', status: 'completed' },
-              { type: 'health', message: 'Health camp scheduled for tomorrow in Ward 5', time: '18 mins ago', status: 'scheduled' },
-              { type: 'education', message: 'Environmental awareness quiz completed by 234 users', time: '25 mins ago', status: 'info' }
+              { type: 'water', message: 'Water quality issue reported in Ward 3', time: '2 mins ago', status: 'new', icon: '💧' },
+              { type: 'resolved', message: 'Waste management complaint resolved in Ward 1', time: '5 mins ago', status: 'resolved', icon: '✅' },
+              { type: 'energy', message: 'Solar panel installation completed at Community Center', time: '12 mins ago', status: 'completed', icon: '⚡' },
+              { type: 'health', message: 'Health camp scheduled for tomorrow in Ward 5', time: '18 mins ago', status: 'scheduled', icon: '🏥' },
+              { type: 'education', message: 'Environmental awareness quiz completed by 234 users', time: '25 mins ago', status: 'info', icon: '📚' }
             ].map((activity, index) => (
               <div key={index} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                <div className={`w-2 h-2 rounded-full ${
-                  activity.status === 'new' ? 'bg-red-500' :
-                  activity.status === 'resolved' ? 'bg-green-500' :
-                  activity.status === 'completed' ? 'bg-blue-500' :
-                  activity.status === 'scheduled' ? 'bg-amber-500' :
-                  'bg-gray-500'
-                }`}></div>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-lg ${activity.status === 'new' ? 'bg-red-100 text-red-600' :
+                    activity.status === 'resolved' ? 'bg-green-100 text-green-600' :
+                      activity.status === 'completed' ? 'bg-blue-100 text-blue-600' :
+                        activity.status === 'scheduled' ? 'bg-amber-100 text-amber-600' :
+                          'bg-gray-100 text-gray-600'
+                  }`}>
+                  {activity.icon}
+                </div>
                 <div className="flex-1">
                   <p className="text-sm text-gray-800">{activity.message}</p>
                 </div>

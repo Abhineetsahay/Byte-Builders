@@ -38,19 +38,16 @@ export default function Page() {
             />
           </div>
 
-          <Button className="w-full h-12 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            Sign In
-          </Button>
 
           <div className="text-center">
             <p className="text-sm text-gray-500">Don't have an account?</p>
           </div>
 
           <Link
-            href="/Signin"
+            href="/admin"
             className="w-full flex items-center justify-center bg-white/80 backdrop-blur-sm border border-yellow-200 text-gray-800 hover:bg-yellow-50 hover:border-yellow-300 transition-all duration-300 py-3 px-4 rounded-md"
           >
-            Signin
+            Go to Dashboard
           </Link>
           <div className="text-center">
             <p className="text-sm text-gray-500">Or continue with</p>

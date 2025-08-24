@@ -36,14 +36,10 @@ export default function Page() {
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-xl border border-yellow-200 hover:shadow-2xl transition-all duration-300">
         <CardHeader className="space-y-6 pb-6">
-          <div className="flex items-center space-x-2">
-            <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-400 transform rotate-45 rounded-sm"></div>
-            <span className="text-xl font-semibold text-gray-800">Name</span>
-          </div>
 
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-800">
-              Welcome to Mo Sahara
+              Welcome to City Pulse
             </h1>
           </div>
         </CardHeader>
@@ -119,10 +115,6 @@ export default function Page() {
             />
           </div>
 
-          <Button className="w-full h-12 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            Sign In
-          </Button>
-
           <div className="text-center">
             <p className="text-sm text-gray-500">Already have an account?</p>
           </div>
@@ -131,7 +123,7 @@ export default function Page() {
             href="/Login"
             className="w-full flex items-center justify-center bg-white/80 backdrop-blur-sm border border-yellow-200 text-gray-800 hover:bg-yellow-50 hover:border-yellow-300 transition-all duration-300 py-3 px-4 rounded-md"
           >
-            Login 
+            Signup 
           </Link>
           <div className="text-center">
             <p className="text-sm text-gray-500">Or continue with</p>
