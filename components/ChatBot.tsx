@@ -14,7 +14,7 @@ export function ChatBot({ className }: ChatBotProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      role: 'assistant',
+      role: 'model',
       content: 'Hello! I\'m your AI assistant for sustainable cities. I can help you with environmental issues, city services, sustainability questions, and more. How can I assist you today?',
       timestamp: new Date()
     }
@@ -75,7 +75,7 @@ export function ChatBot({ className }: ChatBotProps) {
       }
       
       const assistantMessage: ChatMessage = {
-        role: 'assistant',
+        role: 'model',
         content: data.response,
         timestamp: new Date(data.timestamp)
       };
@@ -84,7 +84,7 @@ export function ChatBot({ className }: ChatBotProps) {
     } catch (error) {
       console.error('Error sending message:', error);
       const errorMessage: ChatMessage = {
-        role: 'assistant',
+        role: 'model',
         content: 'Sorry, I encountered an error. Please try again.',
         timestamp: new Date()
       };
@@ -148,7 +148,7 @@ export function ChatBot({ className }: ChatBotProps) {
                     }`}
                   >
                     <div className="flex items-start gap-2">
-                      {message.role === 'assistant' && (
+                      {message.role === 'model' && (
                         <Bot className="w-4 h-4 mt-0.5 flex-shrink-0" />
                       )}
                       <div className="flex-1">

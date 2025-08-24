@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
 export interface ChatMessage {
-  role: 'user' | 'assistant';
+  role: 'user' | 'model';
   content: string;
   timestamp: Date;
 }
@@ -20,7 +20,7 @@ export class GeminiChat {
           parts: [{ text: 'You are a helpful AI assistant for a sustainable cities platform. You help users with environmental issues, city services, and sustainability questions. Be friendly, informative, and provide practical advice.' }],
         },
         {
-          role: 'assistant',
+          role: 'model',
           parts: [{ text: 'Hello! I\'m your AI assistant for sustainable cities. I can help you with environmental issues, city services, sustainability questions, and more. How can I assist you today?' }],
         },
       ],

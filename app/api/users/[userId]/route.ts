@@ -1,14 +1,5 @@
-import { prisma } from "@/prisma-client";
-import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
 
-interface RouteContext {
-  params: {
-    userid: string;
-  };
-}
-
-export async function GET(req: NextRequest, { params }: RouteContext) {
+export async function GET(req: NextRequest, context: { params: Promise<{ userId: string }> }) {
   try {
     // Check authentication
     const session = await auth();
@@ -19,11 +10,11 @@ export async function GET(req: NextRequest, { params }: RouteContext) {
       );
     }
 
-    const { userid } = params;
+    const { userId } = await context.params;
 
     // Check if user has access to this user data
     // Admins can access all users, users can only access their own data
-    if (session.user.role !== 'admin' && userid !== session.user.id) {
+    if (session.user.role !== 'admin' && userId !== session.user.id) {
       return NextResponse.json(
         { error: 'Access denied' },
         { status: 403 }
@@ -32,7 +23,7 @@ export async function GET(req: NextRequest, { params }: RouteContext) {
 
     const user = await prisma.user.findUnique({
       where: {
-        id: userid,
+        id: userId,
       },
     });
 
@@ -43,7 +34,12 @@ export async function GET(req: NextRequest, { params }: RouteContext) {
     return NextResponse.json(user);
 
   } catch (error) {
-    console.error(`Error fetching user ${params.userid}:`, error);
+    console.error(`Error fetching user:`, error);
     return NextResponse.json({ error: "An internal server error occurred." }, { status: 500 });
   }
 }
+
+import { prisma } from "@/prisma-client";
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
+
