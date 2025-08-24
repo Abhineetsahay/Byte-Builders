@@ -54,7 +54,7 @@ export function DonationForm({ onSuccess }: DonationFormProps) {
               <SelectTrigger>
                 <SelectValue placeholder="Select food type" />
               </SelectTrigger>
-              <SelectContent className="z-50" position="popper" side="bottom" align="start">
+              <SelectContent className="z-[9999]" position="popper" side="bottom" align="start">
                 {foodTypes.map((type) => (
                   <SelectItem key={type} value={type}>
                     {type}
@@ -88,11 +88,10 @@ export function DonationForm({ onSuccess }: DonationFormProps) {
                   Select expiry date
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
+              <PopoverContent className="w-auto p-0 z-[9999]">
                 <Calendar
                   mode="single"
                   disabled={(date) => date < new Date()}
-                  initialFocus
                 />
               </PopoverContent>
             </Popover>

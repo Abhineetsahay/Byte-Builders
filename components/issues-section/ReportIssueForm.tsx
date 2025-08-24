@@ -197,7 +197,7 @@ export function ReportIssueForm({ onSubmit }: ReportIssueFormProps) {
             <div className="flex justify-end pt-4">
               <Button 
                 type="submit" 
-                className="px-8 py-3 text-base font-medium bg-blue-600 hover:bg-blue-700"
+                className ="px-8 py-3 text-base font-medium bg-blue-600 hover:bg-blue-700"
                 disabled={!formData.title || !formData.description}
               >
                 Submit Issue
