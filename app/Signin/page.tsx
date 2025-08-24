@@ -33,11 +33,11 @@ export default function Page() {
     : [];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-md bg-white shadow-lg">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center p-4">
+      <Card className="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-xl border border-yellow-200 hover:shadow-2xl transition-all duration-300">
         <CardHeader className="space-y-6 pb-6">
           <div className="flex items-center space-x-2">
-            <div className="w-6 h-6 bg-gray-800 transform rotate-45"></div>
+            <div className="w-6 h-6 bg-gradient-to-br from-yellow-400 to-orange-400 transform rotate-45 rounded-sm"></div>
             <span className="text-xl font-semibold text-gray-800">Name</span>
           </div>
 
@@ -53,7 +53,7 @@ export default function Page() {
             <Input
               type="text"
               placeholder="Name"
-              className="h-12 text-gray-600 placeholder:text-gray-400"
+              className="h-12 text-gray-600 placeholder:text-gray-400 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400"
             />
           </div>
 
@@ -61,16 +61,16 @@ export default function Page() {
             <Input
               type="email"
               placeholder="Email"
-              className="h-12 text-gray-600 placeholder:text-gray-400"
+              className="h-12 text-gray-600 placeholder:text-gray-400 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400"
             />
           </div>
 
           <div className="space-y-2">
             <Select value={selectedState} onValueChange={handleStateChange}>
-              <SelectTrigger className="h-12 w-full text-gray-600">
+              <SelectTrigger className="h-12 w-full text-gray-600 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400">
                 <SelectValue placeholder="Select State" />
               </SelectTrigger>
-              <SelectContent className="bg-white">
+              <SelectContent className="bg-white/95 backdrop-blur-sm border-yellow-200">
                 {indianStates.map((state) => (
                   <SelectItem key={state} value={state}>
                     {state}
@@ -86,14 +86,14 @@ export default function Page() {
               onValueChange={handleCityChange}
               disabled={!selectedState}
             >
-              <SelectTrigger className="h-12 w-full text-gray-600">
+              <SelectTrigger className="h-12 w-full text-gray-600 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400">
                 <SelectValue
                   placeholder={
                     selectedState ? "Select City" : "Select State First"
                   }
                 />
               </SelectTrigger>
-              <SelectContent className="bg-white">
+              <SelectContent className="bg-white/95 backdrop-blur-sm border-yellow-200">
                 {availableCities.map((city) => (
                   <SelectItem key={city} value={city}>
                     {city}
@@ -107,7 +107,7 @@ export default function Page() {
             <Input
               type="password"
               placeholder="Password"
-              className="h-12 text-gray-600 placeholder:text-gray-400"
+              className="h-12 text-gray-600 placeholder:text-gray-400 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400"
             />
           </div>
 
@@ -115,11 +115,11 @@ export default function Page() {
             <Input
               type="password"
               placeholder="Confirm Password"
-              className="h-12 text-gray-600 placeholder:text-gray-400"
+              className="h-12 text-gray-600 placeholder:text-gray-400 border-yellow-200 focus:border-yellow-400 focus:ring-yellow-400"
             />
           </div>
 
-          <Button className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-medium">
+          <Button className="w-full h-12 bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
             Sign In
           </Button>
 
@@ -129,7 +129,7 @@ export default function Page() {
 
           <Link
             href="/Login"
-            className="w-full flex items-center justify-center bg-white border-gray-300 text-gray-800 hover:bg-gray-50"
+            className="w-full flex items-center justify-center bg-white/80 backdrop-blur-sm border border-yellow-200 text-gray-800 hover:bg-yellow-50 hover:border-yellow-300 transition-all duration-300 py-3 px-4 rounded-md"
           >
             Login 
           </Link>
@@ -139,10 +139,10 @@ export default function Page() {
 
           <Button
             variant="outline"
-            className="w-full h-12 bg-white border-gray-300 text-gray-800 hover:bg-gray-50"
+            className="w-full h-12 bg-white/80 backdrop-blur-sm border-yellow-200 text-gray-800 hover:bg-yellow-50 hover:border-yellow-300 transition-all duration-300"
           >
             <div className="flex items-center space-x-2" onClick={() => signIn()}>
-              <div className="w-5 h-5 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold">
+              <div className="w-5 h-5 bg-gradient-to-br from-yellow-400 to-orange-400 text-white rounded-full flex items-center justify-center text-xs font-bold">
                 G
               </div>
               <span>Continue with Google</span>
