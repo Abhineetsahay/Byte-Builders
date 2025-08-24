@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 export default function Page() {
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center p-4">
       <Card className="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-xl border border-yellow-200 hover:shadow-2xl transition-all duration-300">
@@ -43,12 +45,12 @@ export default function Page() {
             <p className="text-sm text-gray-500">Don't have an account?</p>
           </div>
 
-          <Link
-            href="/admin"
+          <Button
             className="w-full flex items-center justify-center bg-white/80 backdrop-blur-sm border border-yellow-200 text-gray-800 hover:bg-yellow-50 hover:border-yellow-300 transition-all duration-300 py-3 px-4 rounded-md"
+            onClick={() => router.push('/admin')}
           >
             Go to Dashboard
-          </Link>
+          </Button>
           <div className="text-center">
             <p className="text-sm text-gray-500">Or continue with</p>
           </div>
