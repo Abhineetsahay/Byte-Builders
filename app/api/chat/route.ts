@@ -1,11 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { geminiChat, ChatMessage } from '@/lib/gemini';
+import { auth } from '@/auth';
 
 export async function POST(request: NextRequest) {
   try {
-    console.log('Chat API called');
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    console.log('Chat API called by user:', session.user.email);
     
-    // Check if API key is available
     if (!process.env.GEMINI_API_KEY) {
       console.error('GEMINI_API_KEY not found in environment variables');
       return NextResponse.json(
@@ -27,14 +35,12 @@ export async function POST(request: NextRequest) {
     let response: string;
 
     if (history && history.length > 0) {
-      // Use history for context
       const messages: ChatMessage[] = [
         ...history,
         { role: 'user', content: message, timestamp: new Date() }
       ];
       response = await geminiChat.sendMessageWithHistory(messages);
     } else {
-      // Single message
       response = await geminiChat.sendMessage(message);
     }
 

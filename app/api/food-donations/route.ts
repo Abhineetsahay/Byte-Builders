@@ -1,5 +1,6 @@
 import { prisma } from "@/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
 import z from "zod";
 
 const CreateFoodDonationSchema = z.object({
@@ -8,11 +9,19 @@ const CreateFoodDonationSchema = z.object({
   pickupAddress: z.string().min(1, "Pickup address is required."),
   photoURL: z.string().url("Must be a valid URL."),
   description: z.string().min(1, "Description is required."),
-  donorUserId: z.string().uuid("Invalid user ID format."),
 });
 
 export async function POST(req: NextRequest) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const parsedData = CreateFoodDonationSchema.safeParse(body);
 
@@ -20,8 +29,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: parsedData.error.flatten().fieldErrors }, { status: 400 });
     }
 
+    // Create donation with the authenticated user's ID
     const newFoodDonation = await prisma.foodDonation.create({
-      data: parsedData.data,
+      data: {
+        ...parsedData.data,
+        donorUserId: session.user.id,
+      },
     });
 
     return NextResponse.json(newFoodDonation, { status: 201 });
@@ -34,7 +47,23 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    // For regular users, only show their own donations
+    // For admins, show all donations
+    const whereClause = session.user.role === 'admin' 
+      ? {} 
+      : { donorUserId: session.user.id };
+
     const donations = await prisma.foodDonation.findMany({
+      where: whereClause,
       include: {
         donor: true,
         acceptedByOrg: true,

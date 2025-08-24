@@ -1,6 +1,8 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronUp, ChevronDown, Star, FileText, CheckCircle, Award, User, Trophy, Users, Target } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 // Types
 interface NgoData {
@@ -23,6 +25,33 @@ type SortField = 'rank' | 'name' | 'impactScore' | 'activeCampaigns' | 'resolved
 type SortDirection = 'asc' | 'desc';
 
 const CityHeroesDashboard = () => {
+  const { data: session, status } = useSession();
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === 'loading') return;
+    if (!session) {
+      redirect('/Login');
+    }
+  }, [session, status]);
+
+  // Show loading while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render anything if not authenticated (will redirect)
+  if (!session) {
+    return null;
+  }
+
   const [ngoSortField, setNgoSortField] = useState<SortField>('rank');
   const [ngoSortDirection, setNgoSortDirection] = useState<SortDirection>('asc');
   const [citizenSortField, setCitizenSortField] = useState<SortField>('rank');
@@ -492,7 +521,7 @@ const CityHeroesDashboard = () => {
                       </td>
                       <td className="py-5 px-4">
                         <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 font-semibold">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 text-green-800 font-semibold">
                             {citizen.issuesResolved}
                           </span>
                           <CheckCircle className="w-4 h-4 text-green-500" />

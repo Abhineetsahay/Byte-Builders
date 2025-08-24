@@ -1,5 +1,6 @@
 import { prisma } from "@/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
 import z from "zod";
 
 const CreateUserSchema = z.object({
@@ -11,6 +12,23 @@ const CreateUserSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    // Only admins can create users
+    if (session.user.role !== 'admin') {
+      return NextResponse.json(
+        { error: 'Admin access required' },
+        { status: 403 }
+      );
+    }
+
     const body = await req.json();
     const parsedData = CreateUserSchema.safeParse(body);
 
@@ -40,6 +58,23 @@ export async function POST(req: NextRequest) {
 
 export async function GET() {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    // Only admins can view all users
+    if (session.user.role !== 'admin') {
+      return NextResponse.json(
+        { error: 'Admin access required' },
+        { status: 403 }
+      );
+    }
+
     const users = await prisma.user.findMany();
 
     return NextResponse.json(users);

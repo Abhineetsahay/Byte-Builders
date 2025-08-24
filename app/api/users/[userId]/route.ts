@@ -1,5 +1,6 @@
 import { prisma } from "@/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
 
 interface RouteContext {
   params: {
@@ -9,7 +10,25 @@ interface RouteContext {
 
 export async function GET(req: NextRequest, { params }: RouteContext) {
   try {
+    // Check authentication
+    const session = await auth();
+    if (!session) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
     const { userid } = params;
+
+    // Check if user has access to this user data
+    // Admins can access all users, users can only access their own data
+    if (session.user.role !== 'admin' && userid !== session.user.id) {
+      return NextResponse.json(
+        { error: 'Access denied' },
+        { status: 403 }
+      );
+    }
 
     const user = await prisma.user.findUnique({
       where: {

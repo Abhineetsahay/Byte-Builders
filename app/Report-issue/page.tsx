@@ -1,7 +1,10 @@
 import { ReportIssueForm } from '@/components/issues-section/ReportIssueForm'
 import React from 'react'
+import { requireAuth } from '@/lib/utils'
 
-const ISSUEPAGE = () => {
+const IssuePage = async () => {
+    await requireAuth()
+
     return (
         <div>
             <ReportIssueForm/>
@@ -9,4 +12,4 @@ const ISSUEPAGE = () => {
     )
 }
 
-export default ISSUEPAGE
+export default IssuePage

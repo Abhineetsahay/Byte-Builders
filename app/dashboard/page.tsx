@@ -1,19 +1,24 @@
-'use client'
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { 
   LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
-  RadialBarChart, RadialBar, ComposedChart
+  ComposedChart
 } from 'recharts';
 import { 
-  TrendingUp, TrendingDown, Users, AlertCircle, CheckCircle, 
-  Clock, Droplet, Leaf, Heart, Book, Home, Zap, Trash2,
-  MapPin, Calendar, Filter, Download, RefreshCw, Award
+  TrendingUp, TrendingDown, AlertCircle, CheckCircle, 
+  Clock, Award, Calendar, Filter, Download, RefreshCw
 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Dashboard = () => {
-  const [selectedTimeRange, setSelectedTimeRange] = useState('month');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // State
+  // const [selectedTimeRange, setSelectedTimeRange] = useState('month');
   const [animatedValues, setAnimatedValues] = useState({
     totalQueries: 0,
     resolvedQueries: 0,
@@ -21,12 +26,16 @@ const Dashboard = () => {
     impactScore: 0
   });
 
-  // Animate counter values on mount
+  useEffect(() => {
+    if (status === 'loading') return; // wait for session
+    if (!session) router.push('/Login'); // client-side redirect
+  }, [session, status, router]);
+
   useEffect(() => {
     const duration = 2000;
     const steps = 60;
     const interval = duration / steps;
-    
+
     const targetValues = {
       totalQueries: 15420,
       resolvedQueries: 12350,
@@ -38,21 +47,19 @@ const Dashboard = () => {
     const timer = setInterval(() => {
       currentStep++;
       const progress = currentStep / steps;
-      
       setAnimatedValues({
         totalQueries: Math.floor(targetValues.totalQueries * progress),
         resolvedQueries: Math.floor(targetValues.resolvedQueries * progress),
         pendingComplaints: Math.floor(targetValues.pendingComplaints * progress),
         impactScore: parseFloat((targetValues.impactScore * progress).toFixed(1))
       });
-
       if (currentStep >= steps) clearInterval(timer);
     }, interval);
 
     return () => clearInterval(timer);
   }, []);
 
-  // SDG Goals Progress Data
+  // Data
   const sdgProgress = [
     { goal: 'Zero Hunger', target: 100, achieved: 78, color: '#E5243B', icon: '🍽️' },
     { goal: 'Good Health', target: 100, achieved: 85, color: '#4C9F38', icon: '❤️' },
@@ -62,7 +69,6 @@ const Dashboard = () => {
     { goal: 'Sustainable Cities', target: 100, achieved: 81, color: '#FD6925', icon: '🏙️' }
   ];
 
-  // Query Resolution Timeline
   const queryTimeline = [
     { date: 'Mon', resolved: 145, pending: 32, new: 177 },
     { date: 'Tue', resolved: 158, pending: 28, new: 165 },
@@ -73,7 +79,6 @@ const Dashboard = () => {
     { date: 'Sun', resolved: 128, pending: 42, new: 148 }
   ];
 
-  // Complaints by Category
   const complaintCategories = [
     { name: 'Water Quality', value: 3542, percentage: 28 },
     { name: 'Waste Management', value: 2875, percentage: 23 },
@@ -83,7 +88,6 @@ const Dashboard = () => {
     { name: 'Energy', value: 887, percentage: 7 }
   ];
 
-  // Response Time Trends
   const responseTimeTrends = [
     { month: 'Jan', avgHours: 48, target: 24 },
     { month: 'Feb', avgHours: 42, target: 24 },
@@ -94,7 +98,6 @@ const Dashboard = () => {
     { month: 'Jul', avgHours: 22, target: 24 }
   ];
 
-  // Community Impact Metrics
   const impactMetrics = [
     { metric: 'Trees Planted', value: '12,450', change: '+12%', icon: '🌳' },
     { metric: 'Water Saved (L)', value: '458K', change: '+8%', icon: '💧' },
@@ -102,7 +105,6 @@ const Dashboard = () => {
     { metric: 'Carbon Reduced (tons)', value: '156', change: '+18%', icon: '🌍' }
   ];
 
-  // Ward-wise Distribution
   const wardDistribution = [
     { ward: 'Ward 1', complaints: 450, resolved: 380 },
     { ward: 'Ward 2', complaints: 320, resolved: 290 },
@@ -126,10 +128,10 @@ const Dashboard = () => {
               <p className="text-gray-600">SDG 2030 Progress Tracking - Bhubaneswar</p>
             </div>
             <div className="flex gap-3">
-              <button className="px-4 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-2">
+              {/* <button className="px-4 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 {selectedTimeRange === 'month' ? 'This Month' : 'This Week'}
-              </button>
+              </button> */}
               <button className="px-4 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow flex items-center gap-2">
                 <Filter className="w-4 h-4" />
                 Filter
@@ -217,7 +219,6 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* SDG Progress Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-bold text-gray-800 mb-6">SDG 2030 Progress</h2>
